@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Personalized Bedtime Story | Mrs. Micaya</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #1B2A4A;
+    --gold: #C9A84C;
+    --gold-light: #F5EDD6;
+    --gold-bright: #E8C158;
+    --cream: #FAFAF5;
+    --star: #FFD700;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    font-family: 'Nunito', sans-serif;
+    color: var(--cream);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1.5px 1.5px at 10% 15%, rgba(255,215,0,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 40%, rgba(255,215,0,0.4) 0%, transparent 100%),
+      radial-gradient(2px 2px at 40% 8%, rgba(255,215,0,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 25%, rgba(255,215,0,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 70% 12%, rgba(255,215,0,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 35%, rgba(255,215,0,0.4) 0%, transparent 100%),
+      radial-gradient(2px 2px at 15% 65%, rgba(255,215,0,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 70%, rgba(255,215,0,0.5) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 50% 80%, rgba(255,215,0,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 30% 90%, rgba(255,215,0,0.3) 0%, transparent 100%),
+      radial-gradient(2px 2px at 75% 88%, rgba(255,215,0,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 50%, rgba(255,215,0,0.4) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  .header {
+    text-align: center;
+    padding: 48px 0 32px;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .brand-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .stars-row {
+    font-size: 22px;
+    letter-spacing: 6px;
+    margin-bottom: 16px;
+    animation: twinkle 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 6vw, 44px);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+
+  h1 span {
+    color: var(--gold);
+    display: block;
+  }
+
+  .header-sub {
+    font-size: 15px;
+    color: rgba(250,250,245,0.7);
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 20px;
+    padding: 32px 28px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .perks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .perks li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(250,250,245,0.88);
+  }
+
+  .perk-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .price-card {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .price-card.featured {
+    background: rgba(201,168,76,0.15);
+    border-color: var(--gold);
+  }
+
+  .price-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .price-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .price-desc {
+    font-size: 12px;
+    color: rgba(250,250,245,0.65);
+    line-height: 1.4;
+  }
+
+  .price-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .timeline-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .timeline-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--navy);
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .timeline-line {
+    width: 2px;
+    height: 28px;
+    background: rgba(201,168,76,0.25);
+    margin: 3px 0;
+  }
+
+  .timeline-content {
+    padding-bottom: 20px;
+  }
+
+  .timeline-content h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 3px;
+  }
+
+  .timeline-content p {
+    font-size: 12px;
+    color: rgba(250,250,245,0.6);
+    line-height: 1.4;
+  }
+
+  /* Form */
+  .form-section { animation: fadeUp 1s ease both; }
+
+  .form-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  .form-sub {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(250,250,245,0.6);
+    margin-bottom: 24px;
+  }
+
+  .form-group { margin-bottom: 18px; }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    color: var(--cream);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(250,250,245,0.35);
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+
+  select option { background: var(--navy); color: var(--cream); }
+  textarea { resize: vertical; min-height: 90px; }
+
+  .privacy-note {
+    font-size: 11px;
+    color: rgba(250,250,245,0.45);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .tier-select {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .tier-option {
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 10px;
+    padding: 14px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .tier-option:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+
+  .tier-option input[type="radio"] {
+    width: auto;
+    margin-right: 6px;
+    accent-color: var(--gold);
+  }
+
+  .tier-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--cream);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .tier-price {
+    font-size: 18px;
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+  }
+
+  .terms-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    color: rgba(250,250,245,0.65);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  .terms-check input {
+    width: auto;
+    margin-top: 2px;
+    flex-shrink: 0;
+    accent-color: var(--gold);
+  }
+
+  .terms-check a {
+    color: var(--gold);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .cta-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+    color: var(--navy);
+    border: none;
+    border-radius: 14px;
+    padding: 18px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    margin-top: 20px;
+    box-shadow: 0 4px 24px rgba(201,168,76,0.35);
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(201,168,76,0.5);
+  }
+
+  .payment-note {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(250,250,245,0.4);
+    margin-top: 10px;
+  }
+
+  /* Legal section */
+  .legal-section {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+
+  .legal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .legal-item {
+    margin-bottom: 14px;
+  }
+
+  .legal-item h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .legal-item p {
+    font-size: 11px;
+    color: rgba(250,250,245,0.55);
+    line-height: 1.6;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    overflow-y: auto;
+    padding: 40px 20px;
+  }
+
+  .modal-overlay.active { display: flex; align-items: flex-start; justify-content: center; }
+
+  .modal {
+    background: var(--navy);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 20px;
+    padding: 32px 28px;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+  }
+
+  .modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .modal-section { margin-bottom: 18px; }
+
+  .modal-section h3 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .modal-section p {
+    font-size: 12px;
+    color: rgba(250,250,245,0.7);
+    line-height: 1.7;
+  }
+
+  /* Success */
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .success-msg .big-star {
+    font-size: 56px;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .success-msg h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .success-msg p {
+    font-size: 14px;
+    color: rgba(250,250,245,0.7);
+    line-height: 1.6;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 32px 0 0;
+    font-size: 11px;
+    color: rgba(250,250,245,0.3);
+    line-height: 1.8;
+  }
+
+  .footer strong { color: var(--gold); }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 500px) {
+    .pricing-grid, .tier-select { grid-template-columns: 1fr; }
+    .card { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Terms Modal -->
+<div class="modal-overlay" id="terms-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>Terms & Conditions</h2>
+
+    <div class="modal-section">
+      <h3>What You Are Purchasing</h3>
+      <p>You are commissioning an original animated bedtime story from Mrs. Micaya. This is a creative service. The completed video will be published on the official Bedtime Original Stories with Mrs. Micaya YouTube channel. You are not purchasing ownership of the video.</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Video Ownership & Intellectual Property</h3>
+      <p>All videos created by Mrs. Micaya remain her sole intellectual property. By commissioning a story you do not acquire ownership, copyright, license, or exclusive rights to the video, its script, illustrations, music, or narration. You receive a permanent YouTube link to view and share freely with friends and family.</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Child Privacy Policy</h3>
+      <p>We collect only your child's first name, age, and general interests. No last names, photographs, school names, addresses, or identifying information are ever collected, stored, or included in any video, title, description, or thumbnail. We do not sell or share any personal information with third parties. Your child's privacy and safety are our highest priority.</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Payment</h3>
+      <p>Full payment is required to confirm your order and begin production. Payment instructions will be sent to your email within 24 hours of form submission. Production does not begin until payment is received and confirmed.</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Delivery Timeline</h3>
+      <p>Stories are delivered within 1–2 weeks of confirmed payment. Mrs. Micaya will communicate any delays promptly. Delivery timelines may vary during high-demand periods. Submitting a form does not guarantee availability — your spot is only confirmed upon receipt of payment.</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Refund & Cancellation Policy</h3>
+      <p>All sales are final once production has begun (within 7 days of payment confirmation). If you need to cancel within 48 hours of payment and production has not yet started, a full refund will be issued. No refunds are available after production has begun. If you are unsatisfied with the final video, please contact us — we will make every reasonable effort to address your concerns.</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Content & Promotional Use</h3>
+      <p>Mrs. Micaya reserves the right to use commissioned stories as examples of her creative work for promotional purposes, including on social media, YouTube, and her website. Your child's last name will never be used in any promotional material. If you prefer your child's story not be used for promotion, please note this in your order form.</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Disclaimer</h3>
+      <p>Mrs. Micaya is not responsible for how shared YouTube links are used after delivery. Parents and guardians are responsible for supervising their child's media consumption. All stories are designed for children and contain no harmful, violent, or inappropriate content.</p>
+    </div>
+
+    <div class="modal-section">
+      <h3>Governing Law</h3>
+      <p>These terms are governed by the laws of the United States. Any disputes will be resolved through good faith communication between both parties.</p>
+    </div>
+
+    <button class="cta-btn" onclick="closeModal()" style="margin-top:10px;">Got it — Close</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="brand-tag">Bedtime Original Stories with Mrs. Micaya</div>
+    <div class="stars-row">⭐ 🌙 ⭐</div>
+    <h1>Make Your Little One<span>the Star of the Story.</span></h1>
+    <p class="header-sub">Commission a fully animated, professionally narrated bedtime story starring your child — published on YouTube, yours to share forever.</p>
+  </div>
+
+  <!-- What they get -->
+  <div class="card">
+    <div class="card-title">✨ What Your Little Star Gets</div>
+    <ul class="perks">
+      <li><span class="perk-icon">🎬</span><span>A fully animated original bedtime story featuring your child's name and their favorite things — built from scratch, just for them</span></li>
+      <li><span class="perk-icon">🎙️</span><span>Professional narration by Mrs. Micaya with soothing music</span></li>
+      <li><span class="perk-icon">🔗</span><span>Published on the Mrs. Micaya YouTube channel — a forever link to share with grandma, aunts, uncles, and everyone who loves your child</span></li>
+      <li><span class="perk-icon">🌙</span><span>A one-of-a-kind story no other child has — written and animated with love</span></li>
+      <li><span class="perk-icon">📖</span><span>Beautiful watercolor-style illustrations custom to your child's adventure</span></li>
+    </ul>
+  </div>
+
+  <!-- Pricing -->
+  <div class="card">
+    <div class="card-title">💛 Choose Your Story</div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-label">Dedicated Story</div>
+        <div class="price-amount">$45</div>
+        <div class="price-desc">Full animated story starring your child's name and their favorite theme</div>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">Most Popular</div>
+        <div class="price-label">Story + Shoutout</div>
+        <div class="price-amount">$60</div>
+        <div class="price-desc">Everything above PLUS Mrs. Micaya personally mentions your child in the video intro</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="card">
+    <div class="card-title">🗺️ How It Works</div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-left"><div class="timeline-dot">1</div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Fill out the form below</h4><p>Tell us your child's first name, age, and what they love most in the world.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><div class="timeline-dot">2</div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Receive your payment link</h4><p>Within 24 hours you'll receive an email with payment instructions to confirm your spot.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><div class="timeline-dot">3</div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Mrs. Micaya gets to work</h4><p>Your story is written, illustrated, animated, and narrated with care. Delivery within 1–2 weeks of payment.</p></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><div class="timeline-dot">4</div><div class="timeline-line"></div></div>
+        <div class="timeline-content"><h4>Your forever link arrives</h4><p>You receive the YouTube link. Share it with everyone who loves your little star. 🌟</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Form -->
+  <div class="form-section">
+    <h2>Request Your Story</h2>
+    <p class="form-sub">First name and favorite theme only — your child's privacy is always protected.</p>
+
+    <div class="card" id="order-form-card">
+      <div class="form-group">
+        <label>Choose Your Package</label>
+        <div class="tier-select">
+          <label class="tier-option">
+            <input type="radio" name="tier" value="dedicated" checked/>
+            <span class="tier-name">Dedicated Story</span>
+            <span class="tier-price">$45</span>
+          </label>
+          <label class="tier-option">
+            <input type="radio" name="tier" value="shoutout"/>
+            <span class="tier-name">Story + Shoutout</span>
+            <span class="tier-price">$60</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Your Name *</label>
+        <input type="text" id="parent-name" placeholder="Your first and last name" required/>
+      </div>
+
+      <div class="form-group">
+        <label>Child's First Name Only *</label>
+        <input type="text" id="child-name" placeholder="e.g. Lucas" maxlength="30" required/>
+        <p class="privacy-note">🔒 First name only — we never collect last names or photos</p>
+      </div>
+
+      <div class="form-group">
+        <label>Child's Age *</label>
+        <input type="text" id="child-age" placeholder="e.g. 5 years old" required/>
+      </div>
+
+      <div class="form-group">
+        <label>What Does Your Child LOVE? *</label>
+        <input type="text" id="child-loves" placeholder="e.g. dinosaurs, space, mermaids, superheroes, animals..." required/>
+      </div>
+
+      <div class="form-group">
+        <label>Any Extra Details? (optional)</label>
+        <textarea id="extra-details" placeholder="e.g. favorite color, a funny personality trait, something that makes them unique — keep it fun and general!"></textarea>
+        <p class="privacy-note">🔒 No last names, school names, or identifying information please</p>
+      </div>
+
+      <div class="form-group">
+        <label>Your Email Address *</label>
+        <input type="email" id="parent-email" placeholder="We'll send your payment link and story updates here" required/>
+      </div>
+
+      <div class="form-group">
+        <label class="terms-check" style="text-transform:none; letter-spacing:0; font-weight:400;">
+          <input type="checkbox" id="terms-check"/>
+          I understand the video will be published on the Mrs. Micaya YouTube channel. I am commissioning a creative service and not purchasing ownership of the video. I have read and agree to the <a onclick="openModal()">full Terms & Conditions</a>.
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label class="terms-check" style="text-transform:none; letter-spacing:0; font-weight:400;">
+          <input type="checkbox" id="privacy-check"/>
+          I understand that only my child's first name and interests will be used. No identifying information will appear in the video. I agree to the <a onclick="openModal()">Privacy Policy</a>.
+        </label>
+      </div>
+
+      <button class="cta-btn" onclick="submitOrder()">✨ Request My Child's Story</button>
+      <p class="payment-note">No payment collected here. You'll receive a secure payment link via email within 24 hours.</p>
+    </div>
+
+    <div class="success-msg" id="success-msg">
+      <span class="big-star">🌟</span>
+      <h2>You're on the list, little star!</h2>
+      <p>Thank you so much! Mrs. Micaya will reach out within 24 hours with your payment link and next steps.<br><br>Get ready — your little one is about to have their very own bedtime story. 💛</p>
+    </div>
+  </div>
+
+  <!-- Legal Summary -->
+  <div class="legal-section">
+    <div class="legal-title">📋 Important Information</div>
+
+    <div class="legal-item">
+      <h4>Video Ownership</h4>
+      <p>Videos are published on the Mrs. Micaya YouTube channel and remain the property of Mrs. Micaya. You receive a permanent shareable link — not ownership of the video.</p>
+    </div>
+
+    <div class="legal-item">
+      <h4>Child Privacy</h4>
+      <p>We collect first name and interests only. No last names, photos, or identifying details ever collected or used. We do not sell or share your information.</p>
+    </div>
+
+    <div class="legal-item">
+      <h4>Refunds</h4>
+      <p>Full refund available within 48 hours of payment if production has not started. All sales final once production begins.</p>
+    </div>
+
+    <div class="legal-item">
+      <h4>Delivery</h4>
+      <p>1–2 weeks from confirmed payment. Your spot is only confirmed once payment is received.</p>
+    </div>
+
+    <div class="legal-item">
+      <h4>Full Terms</h4>
+      <p><a onclick="openModal()" style="color:var(--gold); cursor:pointer; text-decoration:underline;">Read our complete Terms & Conditions and Privacy Policy →</a></p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Bedtime Original Stories with Mrs. Micaya</strong><br>
+    @mrsmicaya<br><br>
+    © 2025 Mrs. Micaya. All rights reserved.<br>
+    Videos remain the intellectual property of Mrs. Micaya.
+  </div>
+
+</div>
+
+<script>
+function openModal() {
+  document.getElementById('terms-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('terms-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('terms-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+function submitOrder() {
+  const parentName = document.getElementById('parent-name').value.trim();
+  const childName = document.getElementById('child-name').value.trim();
+  const age = document.getElementById('child-age').value;
+  const loves = document.getElementById('child-loves').value.trim();
+  const email = document.getElementById('parent-email').value.trim();
+  const terms = document.getElementById('terms-check').checked;
+  const privacy = document.getElementById('privacy-check').checked;
+
+  if (!parentName || !childName || !age || !loves || !email) {
+    alert("Please fill out all required fields before submitting 🌙");
+    return;
+  }
+  if (!terms || !privacy) {
+    alert("Please agree to the Terms & Conditions and Privacy Policy to continue 💛");
+    return;
+  }
+
+  document.getElementById('order-form-card').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+  document.getElementById('success-msg').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
